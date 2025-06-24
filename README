@@ -1,0 +1,95 @@
+## Project Overview
+A secure C++ Authentication application thats design to follow the NIST 800-63B standards for secure login and account creation.
+It includes file-based account storage using openSSL sha-256, passwording hashing combind with bloom filters to check prevent
+common passwords, and safe file locking to ensure data integrity.
+
+## Features
+- Enforing 8 characters or longer for passwords
+- Enforing strong passwords by preventing common passwords
+- SHA-256 evp password hashing for storage
+- Prevents password reuse when chaning passwords
+- File locking ('flock')
+- Wazuh-compatible JSON logs for account creation and login attempts
+- Forarding authentication logs to wazuh
+- Public IP logging with libcurl 
+- textfile database
+
+## Dependencies
+- 'libcurl'  - curl 8.5.0 (x86_64-pc-linux-gnu) libcurl/8.5.0 OpenSSL/3.0.13 zlib/1.3
+    Install: 'sudo apt install libcurl14-openssl-dev'
+- 'libssl'   - OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)
+	Install: 'sudo apt install libssl-dev'
+
+## Makefile example
+LIBS = -lssl -lcrypto -lcurl
+
+## Wazuh Log forwarding
+Note: The JSON log files shown below will be forwarded to wazuh under "ossec.conf" for anaysis.
+# Custom log forwarding: ossec.conf examples:
+<localfile>
+	<log_format>json</log_format>
+	<location>/var/log/auth.log</location>
+</localfile>
+# Custom Decoder: /var/ossec/etc/decoders/my_decoder.xml
+<decoder name="custom-json">
+  <prematch type="json">event</prematch>
+  <json_fields>
+    <field name="event" />
+    <field name="username" />
+    <field name="ip" />
+    <field name="timestamp" />
+    <field name="status" />
+    <field name="username_attempt" />
+    <field name="duplicate_count" />
+  </json_fields>
+</decoder>
+# Custom Rule: /var/ossec/etc/rules/local_rules.xml
+<group name="authentication,"><group name="authentication,">
+  <rule id="100001" level="7">
+    <decoded_as>json</decoded_as>
+    <field name="event">IP_ACCOUNT_DUPLICATION_WARNING</field>
+    <description>IP reused for multiple account attempts</description>
+  </rule>
+</group>
+
+<group name="authentication,authentication_failures,">
+  <rule id="100011" level="5">
+    <decoded_as>json</decoded_as>
+    <field name="event">login_attempt</field>
+    <field name="status">failure</field>
+    <description>Custom: Failed login attempt</description>
+  </rule>
+</group>
+
+<group name="authentication,authentication_success,">
+  <rule id="100012" level="3">
+    <decoded_as>json</decoded_as>
+    <field name="event">login_attempt</field>
+    <field name="status">success</field>
+    <description>Custom: Successful login attempt</description>
+  </rule>
+</group>
+
+## JSON Log example
+# Below: When an user creates an account
+{"event":"account_creation","username":"joe","ip":"93.185.432.34","timestamp":"2025-06-15T13:45:20Z"}
+# Below: When an user attempts to login to their account
+{"event":"login_attempt","username":"joe","status":"success","ip":"93.185.432.34","timestamp":"2025-06-15T13:45:20Z"}
+# Below: When user go's to create an account with a public IP address matches an existing account.
+{"event":"IP_ACCOUNT_DUPLICATION_WARNING","ip":"93.185.432.34","username_attempt":"c123","timestamp":"2025-06-15T13:45:20Z","duplicate_count":3}
+
+## Achnowledgments
+Note on supporting function of the following are generated with the assistence of ChatGPT to streamline task.
+getPublicIP() which uses libcurl
+getCurrentDate()
+"MFA was not implemented due to CLI enviroment."
+
+## Comments
+"While a change password feature is often essential in production systems, this project focuses on initial account creation, secure authentication, and NIST-compliant password enforcement. Password changes require efficient updates to stored hashes and salts, which is 
+better suited for a structured database. This feature may be added in a future version."1~"While a change password feature is often essential in production systems, this project focuses on initial account creation, secure authentication, and NIST-compliant password 
+enforcement. Password changes require efficient updates to stored hashes and salts, which is better suited for a structured database. This feature may be added in a future version."
+
+This project uses the RockYou password dataset due to its common usage in security education and password research.
+ While it is an older dataset, it remains highly relevant in cybersecurity training environments. It is noted that
+the common passwords people use have changed sense 2009, but some are still relevant.
+
