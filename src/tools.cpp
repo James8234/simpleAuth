@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include "tools.h"
 
 /**
@@ -24,4 +25,27 @@ void extractInput(const std::string input, std::string& hash1, std::string& hash
 		hash1 = input.substr(0, firstPosition);
 		hash2 = input.substr(firstPosition + 1);
 	}
+}
+
+/**
+ * @brief Determs if the user wants to leave unsaved data
+ *
+ * The function ask Y or N if they want to leave with unsaved data. This function is called
+ * when its determined they are saving with unsaved data.
+ *
+ * @return true when they do, false when they don't
+ */
+
+bool leaveUnsavedData()
+{
+	char leaveData;
+	std::cout << "Are you sure you want to leave unsaved data <Y/N> ";
+	std::cin.get(leaveData);
+	leaveData = toupper(leaveData);
+
+	if(leaveData == 'Y')
+	{
+		return true;
+	}
+	return false;
 }

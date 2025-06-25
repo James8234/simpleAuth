@@ -1,48 +1,44 @@
 #include <iostream>
-#include <vector> //vector<bool>
-#include "validateInteger.h"
+#include <iomanip> // for setw and setfill
 #include "UI.h"
 
 /**
- * @brief provides the mainmenu UI for users to login or create an account
+ * @brief provides a user interface to create an acconut or login to an existing account
  *
  * The user is provide an menu and they can ether leave the program, create an account
  * or lastly login to their existing account.
  *
- * @param exitProgram stores a bool, false means contine to loop, true means leave
- * @param choice stores the integer input from the user
- *
- * @return the bit vector is passed to later be used to check for common passwords
  */
-
-void mainMenu(std::vector<bool>& passwordBloomFilter)
+void printMainMenu()
 {
-
-	//variables
-	bool exitProgram = false;
-	int choice = 0;
-
 	std::cout << "\033c"; //clears the screen
-	std::cout << "hello welcome" << std::endl;
-	while(!exitProgram)
-	{
-		choice = checkValidInteger(2, 0);
+	std::cout << "Welcome to mainmenu" << std::endl;
+	std::cout << "<0>: exit" << std::endl;
+	std::cout << "<1>: createAccount" << std::endl;
+	std::cout << "<2>: login" << std::endl;
+	std::cout << "-----------------------------" << std::endl;
+	std::cout << "Please enter <0-2>:";
+}
 
-		switch(choice)
-		{
-			case 0 :
-				exitProgram = true;
-				break;
-			case 1 :
-
-				break;
-			case 2 :
-
-				break;
-			default :
-				std::cout << "Input Error" << std::endl;
-		}
-
-	}
-
+/**
+ * @brief provides the user interface to create an account
+ *
+ * The user can enter a username, enter a password, and lastly validate their entered credentials
+ *
+ * @param charCount this is the number of characters from the username so we don't need to pass the hashed pasword
+ *
+ * @return An interactive user interface to create an account to the console
+ */
+void printCreateAccount(std::string username)
+{
+	int charCount = username.size();
+	std::cout << "\033c";
+	std::cout << "Welcome to account creation menu\n" << std::endl;
+	std::cout << "TIP: Never use the name password on multiple sites!\n" << std::endl;
+	std::cout << "<0>: exit" << std::endl;
+	std::cout << "<1>: Enter username: " << username << std::endl;
+	std::cout << "<2>: Enter password: " << std::setfill('*') << std::setw(charCount) << " " << std::endl;
+	std::cout << "<3>: Create Acconunt:" << std::endl;
+	std::cout << "-----------------------------" << std::endl;
+	std::cout << "Please enter <0-3>:";
 }

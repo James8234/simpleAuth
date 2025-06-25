@@ -16,14 +16,15 @@
 int checkValidInteger(int max, int min)
 {
 	//variables
-	int num;
+	int num = 0;
 	bool vaildInput = false;
 	do
 	{
 		if(!(std::cin >> num)) //Checks if the input is a integer, the cin >> num is false when you input "in"
 		{
+			std::cout << "Error: Please enter a integer!" << std::endl;
 			std::cin.clear();
-			std::cin.ignore(10000 , '\n');
+//			std::cin.ignore(10000 , '\n');
 		}
 		else if(min > num || num > max) //Checks if the input is within a range
 		{
