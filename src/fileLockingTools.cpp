@@ -112,4 +112,5 @@ void fileFailure(int &fd)
 	std::cout << "Error: file could not open" << std::endl;
 	std::cin.ignore(100000 , '\n');
 	unlockFile(fd);
+	std::exit(0);
 }
