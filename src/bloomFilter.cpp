@@ -4,7 +4,7 @@
 #include <fstream> // ifstream
 #include <vector> //vector<boo>& bloomFilter
 #include "bloomFilter.h"
-#include "../../utils/Tools/fileLockingTools.h"
+#include "fileLockingTools.h"
 /**
  * @brief Calculates optimal parameters for a bloom filter
  *
@@ -61,7 +61,7 @@ bloomValues getBloomValues(const std::string filepath)
 }
 
 /**
- * @brief init the bloom filter based on a provided file
+ * @brief Initializes a bloom filter from a prahashed text file.
  *
  * This function passes the bit vector by refernce and then loads it from a prehashed textfile
  * This function allows us to use the bloom filter to check for common passwords or exist usernames

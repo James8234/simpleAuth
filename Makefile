@@ -1,21 +1,25 @@
-CFLAGS = -Wall -Werror -Wpedantic -std=c++20
-CC = g++ -MMD -MP
+#CFLAGS = -Wall -Werror -Wpedantic -std=c++20
+#CC = g++ -MMD -MP
 
-OBJECTS = main.o test/test.o utils/bloomFilter/bloomFilter.o utils/Tools/fileLockingTools.o
-
+INCLUDES = -Iinclude
+C = g++
 LIBS = -lssl -lcrypto
 
-default: run
+CFLAGS = -std=c++20 -Wall -Werror -Wpedantic $(INCLUDES)
+#OBJECTS = main.o test/test.o utils/bloomFilter/bloomFilter.o utils/Tools/fileLockingTools.o
+SRC = $(wildcard src/*.cpp)
+OBJ = $(SRC:.cpp=.o)
+TARGET = bin/project
 
-run: $(OBJECTS)
-	$(CC) $(CFLAGS) $(LIBS) -o $@ $^
 
-main.o: header.h test/test.h utils/bloomFilter/bloomFilter.h
+all: $(TARGET)
 
-test/test.o:
+$(TARGET): $(OBJ)
+	$(C) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LIBS)
 
-utils/bloomFilter/bloomFilter.o: utils/bloomFilter/bloomFilter.h utils/Tools/fileLockingTools.h
+src/%.o: src/%.cpp
+	$(C) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-.PHONY: clean
 clean:
-	rm -f $(OBJECTS)
+	rm -f src/*.o $(TARGET)
+

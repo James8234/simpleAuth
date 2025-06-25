@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector> //Used for bit vector
 #include "header.h"
-#include "test/test.h"
-#include "utils/bloomFilter/bloomFilter.h"
+#include "test.h"
+#include "bloomFilter.h"
 using namespace std;
 
 int main()
