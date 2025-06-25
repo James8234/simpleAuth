@@ -101,9 +101,15 @@ bool unlockFile(int &fd)
 	return flock(fd, LOCK_UN); //Release the lock
 }
 
-/*
-int main()
+/**
+ * @brief handles file opening failure
+ *
+ * This function prints a message to the user and then unlocks the file
+ */
+
+void fileFailure(int &fd)
 {
-	return 0;
+	std::cout << "Error: file could not open" << std::endl;
+	std::cin.ignore(100000 , '\n');
+	unlockFile(fd);
 }
-*/
