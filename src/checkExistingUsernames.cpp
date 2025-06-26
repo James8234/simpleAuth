@@ -17,10 +17,17 @@
 bool checkExistingUsernames(const std::string username)
 {
 	//variables
-	vecter<bool> usernameBoolFilter;
+	std::vector<bool> usernameBloomFilter;
 	std::string filepath = "shadow/hashedUsernames.dat";
 	bool inList = false;
 
+	//Determines and changes bloom filter size based on provided file
+	bloomValues usernameParam = getBloomValues(filepath);
+	usernameBloomFilter.resize(usernameParam.m, false);
+	//Fill the bloom filter
+	initBloomFilter(usernameBloomFilter, filepath, usernameParam.m, usernameParam.k);
+	//Check if username is in existing list
+	inList = checkInList(usernameBloomFilter, username, usernameParam.m, usernameParam.k);
 
-
+	return inList; //return true when not in list. return false when it might be in list 1/1000 false posistive chance
 }

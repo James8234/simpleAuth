@@ -6,7 +6,7 @@
 #include <cstdint> // for uint64_t
 #include "bloomFilter.h"
 #include "fileLockingTools.h" //lockFile() unlockFile()
-#include "opensslLib.h" //hexToDes(), hexPair struct
+#include "opensslLib.h" //hexToDes(), hexPair struct, hash_sha1_evp
 #include "tools.h" //extractInput()
 /**
  * @brief Calculates optimal parameters for a bloom filter
@@ -124,6 +124,52 @@ void initBloomFilter(std::vector<bool>& bloomfilter, std::string filepath, const
 	file.close();
 	unlockFile(fd);
 }
+
+/**
+ * @brief Checks if a input is in the bloom filter
+ *
+ * This function purpose is to take in a input from the user, and then use the hash function
+ * a number of times to check it its in the bloom filter. It dose this by hashing the user input
+ * twice and then calculates and index by multiplying them together plus a increment variable.
+ *
+ * @param bloomfilter this is the loaded bloomfilter from a prehash text file you want to check if a string is in
+ * @param input this is the user input string, this can be ether a username or prehash password
+ * @param m this is the number of bits the bloom filter has and is used in the index calulation
+ * @param k this is the number of hash functions we want to compare to check if our string is in the list
+ */
+
+bool checkInList(std::vector<bool>& bloomfilter, const std::string input, const long m, const int k)
+{
+	//variables
+	std::string hash1 = "";
+	std::string hash2 = "";
+	long intHash1 = 0;
+	long intHash2 = 0;
+	long index = 0;
+	hexPair hexs;
+
+	//generate hash from user input
+	hash1 = hash_sha1_evp(input);
+	hash2 = hash_sha1_evp(input + "salt");
+
+	//convert hex to dec
+	hexs = hexToDec(hash1, hash2);
+
+	//extract integers
+	intHash1 = hexs.value1;
+	intHash2 = hexs.value2;
+
+	for(int i = 0; i < k; i++)
+	{
+		index = ((intHash1 + i * intHash2) % m);
+		if(bloomfilter[index] == 0)
+			return true; //input was not found in bloomfilter list
+	}
+
+	return false; //input was found in bloomfilter list
+}
+
+
 
 /**
  * @brief Encapsulates the initiation of the bloom filter to check for common passwords
