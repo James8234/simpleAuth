@@ -49,3 +49,24 @@ bool leaveUnsavedData()
 	}
 	return false;
 }
+
+/**
+ * @brief Checks if a string has atleast one non whitespace character
+ *
+ * The purpose of this function is to allow users to have passwords and username with whitespace
+ * But they need to have atleast one non-white character in their inputs.
+ *
+ * @param input is the provided string from the user
+ *
+ * return bool, true means its valid and has one non-white space character, false means its all white-space
+ */
+
+bool whitespaceCheck(std::string input)
+{
+	for(char c : input)
+	{
+		if(static_cast<int>(c) != 32)
+			return true;
+	}
+	return false;
+}

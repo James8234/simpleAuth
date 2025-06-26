@@ -2,6 +2,7 @@
 #define CREATEACCOUNT_H_
 
 #include <vector>
+#include <string>
 
 struct validateResult
 {
@@ -10,4 +11,6 @@ struct validateResult
 };
 
 void createAccount(std::vector<bool>& bloomfilter);
+validateResult validateUsername(std::string username);
+
 #endif
