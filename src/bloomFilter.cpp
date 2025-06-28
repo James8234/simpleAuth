@@ -50,11 +50,20 @@ bloomValues getBloomValues(const std::string filepath)
 		n++;
 	}
 
-	//calculate number of bits
-	m = -(n * log(p) / (log(2) * log(2)));
+	//check in the case the file is empty
+	if(n == 0)
+	{
+		m = 1;
+		k = 1;
+	}
+	else
+	{
+		//calculate number of bits
+		m = -(n * log(p) / (log(2) * log(2)));
 
-	//calculate number of hash functions
-	k = (m/n) * log(2);
+		//calculate number of hash functions
+		k = (m/n) * log(2);
+	}
 
 	file.close(); //close file
 	unlockFile(fd); //unlockfile
@@ -160,6 +169,14 @@ bool checkInList(std::vector<bool>& bloomfilter, const std::string input, const 
 	//extract integers
 	intHash1 = hexs.value1;
 	intHash2 = hexs.value2;
+
+//std::cout << "Your bit count is " << m << std::endl;
+//std::cin.ignore(10000 , '\n');
+	if( m == 1)
+	{
+//std::cout << "Your list is 0 " << std::endl;
+		return true; //The text file is empty
+	}
 
 	for(int i = 0; i < k; i++)
 	{

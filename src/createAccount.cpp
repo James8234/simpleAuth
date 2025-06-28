@@ -63,19 +63,24 @@ void createAccount(std::vector<bool>& bloomfilter)
 				usernameResult = validateUsername(username);
 				passwordResult = validatePassword(bloomfilter, password);
 
-			//Provide feedback If the user entered an invalid username or password
-			if(usernameResult.success == false)
-				std::cout << usernameResult.message << std::endl;
-			if(passwordResult.success == false)
-				std::cout << passwordResult.message << std::endl;
+				//Provide feedback If the user entered an invalid username or password
+				if(usernameResult.success == false)
+					std::cout << usernameResult.message << std::endl;
+				if(passwordResult.success == false)
+					std::cout << passwordResult.message << std::endl;
 
 			//Checks if the the username and password is valid if so the account will be created
-			if(usernameResult.success && passwordResult.success)
-			{
-				logCreateAccount(username);
-				storeCredentials(username, password);
-				exitProgram = true;
-			}
+				if(usernameResult.success && passwordResult.success)
+				{
+					logCreateAccount(username);
+					storeCredentials(username, password);
+					exitProgram = true;
+				}
+std::cout << "Here" << std::endl;
+std::cin.ignore(100000 , '\n');
+				break;
+			default :
+				std::cout << "Errpr: input:" << std::endl;
 		} //swtich
 	}//while
 }//void createAccount
