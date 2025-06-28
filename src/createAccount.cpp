@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include "createAccount.h"
+#include "validateUsername.h" //validateResult validateUsername(username);
 #include "validateInteger.h" //int checkValidInteger(int, int)
 #include "UI.h" //printCreateAccount(username);
 #include "opensslLib.h" //std::string hash_sha512_evp(const std::string& input)
@@ -55,13 +56,16 @@ void createAccount(std::vector<bool>& bloomfilter)
 				password = hash_sha512_evp(password + "salt");
 				break;
 			case 3 :
-				//usernameResult = validateUsername(username);
+				usernameResult = validateUsername(username);
 				//validatePassword = validatePassword(bloomfilter, password);
+
+			//Provide feedback If the user entered an invalid username or password
 			if(usernameResult.success == false)
 				std::cout << usernameResult.message << std::endl;
 			if(passwordResult.success == false)
 				std::cout << passwordResult.message << std::endl;
 
+			//Checks if the the username and password is valid if so the account will be created
 			if(usernameResult.success && passwordResult.success)
 			{
 				//logCreateAccount(username)

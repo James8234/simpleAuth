@@ -1,4 +1,5 @@
-#include "createAccount.h"
+#include "validateUsername.h"
+#include "checkExistingUsernames.h" //checkExistingUsername(username)
 #include "tools.h" //whitespace check
 #include <string>
 
@@ -22,10 +23,11 @@ validateResult validateUsername(std::string username)
 	if(!whitespaceCheck(username))
 		return { false, "Error: username must have atleast one character" };
 
-//	if(checkExistingUsername(username))
-//		return { false, "Error: Username already exist" };
+	if(checkExistingUsernames(username))
+		return { false, "Error: Username already exist" };
 
+	//This case is true then the username passess the three previous checks
 	return { true, "Successful" };
-//	if
+
 }
 
