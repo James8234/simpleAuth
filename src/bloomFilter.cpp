@@ -136,6 +136,8 @@ void initBloomFilter(std::vector<bool>& bloomfilter, std::string filepath, const
  * @param input this is the user input string, this can be ether a username or prehash password
  * @param m this is the number of bits the bloom filter has and is used in the index calulation
  * @param k this is the number of hash functions we want to compare to check if our string is in the list
+ *
+ * @return bool, true when not in list, false when is in list
  */
 
 bool checkInList(std::vector<bool>& bloomfilter, const std::string input, const long m, const int k)

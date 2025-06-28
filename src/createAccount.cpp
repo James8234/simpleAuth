@@ -6,6 +6,7 @@
 #include "validateInteger.h" //int checkValidInteger(int, int)
 #include "UI.h" //printCreateAccount(username);
 #include "opensslLib.h" //std::string hash_sha512_evp(const std::string& input)
+#include "validateResult.h" //provides struct validateResult
 #include "tools.h"
 /**
  * @brief creates accounts
@@ -53,7 +54,7 @@ void createAccount(std::vector<bool>& bloomfilter)
 				break;
 			case 2 :
 				getline(std::cin, password);
-				password = hash_sha512_evp(password + "salt");
+				password = hash_sha512_evp(password + "salt"); //hash password to protect from mem drop
 				break;
 			case 3 :
 				usernameResult = validateUsername(username);

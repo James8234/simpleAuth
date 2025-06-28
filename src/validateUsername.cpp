@@ -1,5 +1,6 @@
 #include "validateUsername.h"
 #include "checkExistingUsernames.h" //checkExistingUsername(username)
+#include "validateResult.h" //provides struct validateResult
 #include "tools.h" //whitespace check
 #include <string>
 

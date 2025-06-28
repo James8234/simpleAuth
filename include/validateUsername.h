@@ -2,14 +2,7 @@
 #define VALIDATEUSERNAME_H_
 
 #include <string>
-
-
-
-struct validateResult
-{
-     bool success;
-     std::string message;
-};
+#include "validateResult.h" //provides struct validateResult
 
 validateResult validateUsername(std::string username);
 
