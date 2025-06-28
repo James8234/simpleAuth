@@ -8,6 +8,8 @@
 #include "opensslLib.h" //std::string hash_sha512_evp(const std::string& input)
 #include "validateResult.h" //provides struct validateResult
 #include "validatePassword.h" //validateResult validatePassword(bloomfilter, password);
+#include "storeCredentials.h" //void storeCredentials(std::string username, std::string password)
+#include "logCreateAccount.h" //logCreateAccount(username);
 #include "tools.h"
 /**
  * @brief creates accounts
@@ -70,8 +72,8 @@ void createAccount(std::vector<bool>& bloomfilter)
 			//Checks if the the username and password is valid if so the account will be created
 			if(usernameResult.success && passwordResult.success)
 			{
-				//logCreateAccount(username)
-				//storeCredentials(username, password)
+				logCreateAccount(username);
+				storeCredentials(username, password);
 				exitProgram = true;
 			}
 		} //swtich

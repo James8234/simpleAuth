@@ -4,6 +4,7 @@
 #include "fetchPublicIP.h" //std::string getPublicIP()
 #include "logCreateAccount.h" //std::string getCurrentDate()
 #include "fileLockingTools.h" //fileFailure(...), lockFile(...), unlockFile(...)
+#include "logCreateAccount.h"
 
 /**
  * @brief This function purpose is to create a json log when the user has created an account
