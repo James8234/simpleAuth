@@ -112,3 +112,7 @@ This project uses the RockYou password dataset due to its common usage in securi
  While it is an older dataset, it remains highly relevant in cybersecurity training environments. It is noted that
 the common passwords people use have changed sense 2009, but some are still relevant.
 
+## ⚠️ LLM Usage Prohibited Without Permission
+This project is **not licensed for use in training, fine-tuning, or enhancing AI/ML models**, including large language models (LLMs), without **explicit written consent** from the author.
+If you are a company, researcher, or developer intending to use this code in machine learning applications, **please contact the maintainer first**.
+Unauthorized use in ML model training is considered a **violation of license terms**.
