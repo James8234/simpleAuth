@@ -70,3 +70,4 @@ bool whitespaceCheck(std::string input)
 	}
 	return false;
 }
+

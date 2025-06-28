@@ -7,6 +7,7 @@
 #include "UI.h" //printCreateAccount(username);
 #include "opensslLib.h" //std::string hash_sha512_evp(const std::string& input)
 #include "validateResult.h" //provides struct validateResult
+#include "validatePassword.h" //validateResult validatePassword(bloomfilter, password);
 #include "tools.h"
 /**
  * @brief creates accounts
@@ -58,7 +59,7 @@ void createAccount(std::vector<bool>& bloomfilter)
 				break;
 			case 3 :
 				usernameResult = validateUsername(username);
-				//validatePassword = validatePassword(bloomfilter, password);
+				passwordResult = validatePassword(bloomfilter, password);
 
 			//Provide feedback If the user entered an invalid username or password
 			if(usernameResult.success == false)

@@ -1,6 +1,6 @@
 INCLUDES = -Iinclude
 C = g++
-LIBS = -lssl -lcrypto
+LIBS = -lssl -lcrypto -lcurl
 
 CFLAGS = -std=c++20 -Wall -Werror -Wpedantic $(INCLUDES)
 # wildcard grab all .cpp files in the src/ folder adn assign them to SRC

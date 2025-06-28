@@ -3,6 +3,7 @@
 #include "validateInteger.h" //int checkValidInteger(int, int)
 #include "menu.h"
 #include "createAccount.h" //void createAccount(std::vector<bool>& bloomfilter)
+#include "loginAccount.h" //loginAccount()
 #include "UI.h" //void printMainMenu()
 /**
  * @brief provides the mainmenu UI for users to login or create an account
@@ -37,7 +38,7 @@ void mainMenu(std::vector<bool>& passwordBloomFilter)
 				createAccount(passwordBloomFilter);
 				break;
 			case 2 :
-
+				loginAccount();
 				break;
 			default :
 				std::cout << "Input Error" << std::endl;
