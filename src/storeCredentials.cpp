@@ -32,7 +32,7 @@ void storeCredentials(std::string username, std::string password)
 	fd = lockFile(credentialsFilepath);
 
 	//open output stream
-	std::ofstream file(credentialsFilepath);
+	std::ofstream file(credentialsFilepath, std::ios::app);
 
 	//check for open failure
 	if(!file.is_open())

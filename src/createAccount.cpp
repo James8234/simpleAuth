@@ -57,7 +57,6 @@ void createAccount(std::vector<bool>& bloomfilter)
 				break;
 			case 2 :
 				getline(std::cin, password);
-				password = hash_sha512_evp(password + "salt"); //hash password to protect from mem drop
 				break;
 			case 3 :
 				usernameResult = validateUsername(username);
@@ -69,15 +68,19 @@ void createAccount(std::vector<bool>& bloomfilter)
 				if(passwordResult.success == false)
 					std::cout << passwordResult.message << std::endl;
 
-			//Checks if the the username and password is valid if so the account will be created
+				//Checks if the the username and password is valid if so the account will be created
 				if(usernameResult.success && passwordResult.success)
 				{
+					password = hash_sha512_evp(password + "salt"); //hash password to protect from mem drop
 					logCreateAccount(username);
 					storeCredentials(username, password);
 					exitProgram = true;
 				}
-std::cout << "Here" << std::endl;
-std::cin.ignore(100000 , '\n');
+				else
+				{
+					std::cout << "<----Enter anything to continue!---->" << std::endl;
+					std::cin.ignore(100000 , '\n');
+				}
 				break;
 			default :
 				std::cout << "Errpr: input:" << std::endl;

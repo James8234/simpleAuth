@@ -34,7 +34,7 @@ void storeHashUsername(std::string username)
 	fd = lockFile(hashedUsernameFile);
 
 	//Open output stream
-	std::ofstream file(hashedUsernameFile);
+	std::ofstream file(hashedUsernameFile, std::ios::app);
 
 	if(!file.is_open())
 		fileFailure(fd);

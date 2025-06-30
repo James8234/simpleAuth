@@ -18,7 +18,7 @@
  */
 validateResult validateUsername(std::string username)
 {
-	if(username.size() > 50 && username.size() < 4)
+	if(username.size() > 50 || username.size() < 4)
 		return { false, "Error: Invalid username length. Keep within 50-4" };
 
 	if(!whitespaceCheck(username))

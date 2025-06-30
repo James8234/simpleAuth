@@ -3,7 +3,7 @@
 #include "createAccount.h"
 #include "bloomFilter.h" //bloomValue struct, getBoomValues(filepath), initBloomFilter(...), checkInList(...)
 
-/**
+ /**
  * @brief checks if the username provided by user, already exist in the system
  *
  * The purpose of function is to make sure every user has an unqiue idenity,

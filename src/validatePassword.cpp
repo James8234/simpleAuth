@@ -4,7 +4,6 @@
 #include "validatePassword.h"
 #include <vector>
 
-//#include <iostream>
 /**
 * @brief This function validates an provided password and outputs a struct with two variables bool string
 *
@@ -21,10 +20,9 @@
 
 validateResult validatePassword(std::vector<bool>& bloomfilter, const std::string password)
 {
-	if(password.size() > 50 && password.size() < 8)
+	if(password.size() > 50 || password.size() < 8)
 		return { false, "Error: Invalid password length. 8 min, 50 max." };
-//std::cout << "your password is: " << password << std::endl;
-//std::cin.ignore(10000 , '\n');
+
 	if(!whitespaceCheck(password))
 		return { false, "Error: Password must have at least one character." };
 

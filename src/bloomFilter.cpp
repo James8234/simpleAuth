@@ -1,4 +1,3 @@
-#include <iostream>
 #include <cstdint> //uint64_t
 #include <cmath> //log()
 #include <fstream> // ifstream
@@ -113,19 +112,19 @@ void initBloomFilter(std::vector<bool>& bloomfilter, std::string filepath, const
 	{
 		fileFailure(fd);
 	}
+
 	//extract input
-//std::cout << "before getting line" << std::endl;
-//int f = 0;
 	while(getline(file, input))
 	{
 		extractInput(input, hash1, hash2);
 		hexs = hexToDec(hash1, hash2);
 		intHash1 = hexs.value1;
 		intHash2 = hexs.value2;
+
 		//Sets the bloom filter assigned index from flase to true
 		for(int i=0; i < k; i++)
 		{
-			index = ((intHash1 + i * intHash2) % m);
+			index = (((intHash1 + i * intHash2) % m + m) % m);
 			bloomfilter[index] = true;
 		}
 	}
@@ -154,8 +153,8 @@ bool checkInList(std::vector<bool>& bloomfilter, const std::string input, const 
 	//variables
 	std::string hash1 = "";
 	std::string hash2 = "";
-	long intHash1 = 0;
-	long intHash2 = 0;
+	uint64_t intHash1 = 0;
+	uint64_t intHash2 = 0;
 	long index = 0;
 	hexPair hexs;
 
@@ -170,18 +169,16 @@ bool checkInList(std::vector<bool>& bloomfilter, const std::string input, const 
 	intHash1 = hexs.value1;
 	intHash2 = hexs.value2;
 
-//std::cout << "Your bit count is " << m << std::endl;
-//std::cin.ignore(10000 , '\n');
 	if( m == 1)
 	{
-//std::cout << "Your list is 0 " << std::endl;
 		return true; //The text file is empty
 	}
 
 	for(int i = 0; i < k; i++)
 	{
-		index = ((intHash1 + i * intHash2) % m);
-		if(bloomfilter[index] == 0)
+		index = (((intHash1 + i * intHash2) % m + m) % m);
+
+		if(bloomfilter[index] == false)
 			return true; //input was not found in bloomfilter list
 	}
 

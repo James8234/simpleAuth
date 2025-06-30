@@ -44,7 +44,7 @@ void logCreateAccount(const std::string username)
 	fd = lockFile(filepath);
 
 	//open the file
-	std::ofstream file(filepath);
+	std::ofstream file(filepath, std::ios::app);
 
 	//Check for failture to open file
 	if(!file.is_open())

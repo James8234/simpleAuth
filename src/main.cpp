@@ -7,7 +7,6 @@ using namespace std;
 
 int main()
 {
-//	stuff();
 	vector<bool> passwordBloomFilter;
 	cout << "\033c";
 	cout << "Loading..." << endl;
