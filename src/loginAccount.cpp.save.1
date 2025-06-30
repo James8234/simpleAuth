@@ -3,8 +3,7 @@
 #include "loginAccount.h"
 #include "validateInteger.h" //int checkValidInteger(max, min)
 #include "opensslLib.h" //std::string hash_sha512_evp(const std::string& input)
-#include "authenticateIdenity.h" //authenticateIdenity(username, password);
-#include "logAuthticationAttempt.h"
+#include "authenticateIdenity.h" //
 /**
  * @brief This function allows the user to login to their existing account
  *
@@ -51,7 +50,7 @@ void loginAccount()
 				if(usernameSize >= 4 && usernameSize <= 50 && passwordSize >= 8 && passwordSize <= 50)
 				{
 					loginStatus = authenticateIdenity(username, password);
-					logAuthticationAttempt(username, loginStatus);
+					//logAuthticationAttempt(username, loginStatus)
 					exitProgram = true;
 				}
 				else
