@@ -1,6 +1,8 @@
+#include <iostream>
 #include <string>
 #include "loginAccount.h"
-
+#include "validateInteger.h" //int checkValidInteger(max, min)
+#include "opensslLib.h" //std::string hash_sha512_evp(const std::string& input)
 /**
  * @brief This function allows the user to login to their existing account
  *
@@ -18,11 +20,46 @@
 void loginAccount()
 {
 	//variables
-/*
 	int choice = 0;
+	int passwordSize = 0;
+	int usernameSize = 0;
 	bool exitProgram = false;
 	std::string username = "";
 	std::string password = "";
-	bool loginStatus = false;
-*/
-}
+//	bool loginStatus = false;
+
+	while(!exitProgram)
+	{
+		choice = checkValidInteger(3, 0);
+
+		switch(choice)
+		{
+			case 0 :
+				exitProgram = true;
+				break;
+			case 1 :
+				getline(std::cin, username);
+				usernameSize = username.size();
+				break;
+			case 2 :
+				getline(std::cin, password);
+				passwordSize = password.size();
+				password = hash_sha512_evp(password + "size");
+				break;
+			case 3 :
+				if(usernameSize >= 4 && usernameSize <= 50 && passwordSize >= 8 && passwordSize <= 50)
+				{
+					//loginStatus = authenticateIdenity(username, password)
+					//logAuthticationAttempt(username, loginStatus)
+					exitProgram = true;
+				}
+				else
+				{
+					std::cout << "Input left empty" << std::endl;
+				}
+				break;
+			default :
+				std::cout << "input error" << std::endl;
+		}//switch(choice)
+	}//while(!exitProgram)
+}//end of function

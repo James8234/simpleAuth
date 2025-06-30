@@ -1,6 +1,50 @@
 #include <string>
 #include <iostream>
+#include <vector>
 #include "tools.h"
+
+/**
+ * @brief Extracts variables from a json text file
+ *
+ * This function requires the number of varables and the string which contains the json string.
+ * The function extracts one variable at a time in the inerloop. The outer loop runs for every needed variable.
+ * It works by getting the front and back " around the formatted data. And then using input.substr to get the
+ * data.
+ *
+ * @param input contains the line of data from the json formatted text file
+ * @param n contains the number of variables we need to extract from that single line.
+ *
+ * @return vector which contains the string variables in each elemnt of the vector
+ */
+
+std::vector<std::string> extractJsonInput(const std::string input, int n)
+{
+	//variables
+	std::string variable = "";
+	size_t firstPosition = 0;
+	size_t secondPosition = 0;
+	std::vector<std::string> var;
+
+	//outer loop for each variable
+	for(int i = 0; i < n; i++)
+	{
+		//internal loop to extract a single variable at a time
+		for(int j = 0; j < 2; j++)
+		{
+			//These two after the second loop has the second pair of "" which contains our variable
+			firstPosition = input.find('\"', secondPosition + 1);
+			secondPosition = input.find('\"', firstPosition + 1);
+		}
+		//check for errors
+		if(firstPosition != std::string::npos)
+		{
+			variable = input.substr(firstPosition + 1, secondPosition);
+			var.push_back(variable);
+		}
+	}//outer loop
+	return var;
+}//end of function
+
 
 /**
  * @brief Extracts two hash values from a single string

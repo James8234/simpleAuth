@@ -53,9 +53,11 @@ void createAccount(std::vector<bool>& bloomfilter)
 				}
 				break;
 			case 1 :
+				std::cout << "Enter username here ->:";
 				getline(std::cin, username);
 				break;
 			case 2 :
+				std::cout << "Enter password here ->:";
 				getline(std::cin, password);
 				break;
 			case 3 :
