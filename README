@@ -33,7 +33,7 @@ LIBS = -lssl -lcrypto -lcurl
 ├── sample_data/          # (Optional) Contains mock logs or credentials for demo
 ├── bin/
 ├── Makefile
-└── README.md
+└── README
 
 ## Sensitive File Handling
 This project creates and uses sensitive directories such as:
@@ -49,7 +49,8 @@ Note: The JSON log files shown below will be forwarded to wazuh under "ossec.con
 	<log_format>json</log_format>
 	<location>/var/log/auth.log</location>
 </localfile>
-# Custom Decoder: /var/ossec/etc/decoders/my_decoder.xml
+
+# Custom Decoder: /var/ossec/etc/decoders/my_decoder.xml - Note Wazuh already has default decoderd for json standard vaild format
 <decoder name="custom-json">
   <prematch type="json">event</prematch>
   <json_fields>
@@ -62,6 +63,7 @@ Note: The JSON log files shown below will be forwarded to wazuh under "ossec.con
     <field name="duplicate_count" />
   </json_fields>
 </decoder>
+
 # Custom Rule: /var/ossec/etc/rules/local_rules.xml
 <group name="authentication,"><group name="authentication,">
   <rule id="100001" level="7">
@@ -75,7 +77,7 @@ Note: The JSON log files shown below will be forwarded to wazuh under "ossec.con
   <rule id="100011" level="5">
     <decoded_as>json</decoded_as>
     <field name="event">login_attempt</field>
-    <field name="status">failure</field>
+    <match key="status">failed</field>
     <description>Custom: Failed login attempt</description>
   </rule>
 </group>
@@ -84,7 +86,7 @@ Note: The JSON log files shown below will be forwarded to wazuh under "ossec.con
   <rule id="100012" level="3">
     <decoded_as>json</decoded_as>
     <field name="event">login_attempt</field>
-    <field name="status">success</field>
+    <match key="status">success</field>
     <description>Custom: Successful login attempt</description>
   </rule>
 </group>
@@ -105,7 +107,7 @@ getCurrentDate()
 
 ## Comments
 "While a change password feature is often essential in production systems, this project focuses on initial account creation, secure authentication, and NIST-compliant password enforcement. Password changes require efficient updates to stored hashes and salts, which is 
-better suited for a structured database. This feature may be added in a future version."1~"While a change password feature is often essential in production systems, this project focuses on initial account creation, secure authentication, and NIST-compliant password 
+better suited for a structured database. This feature may be added in a future version. While a change password feature is often essential in production systems, this project focuses on initial account creation, secure authentication, and NIST-compliant password 
 enforcement. Password changes require efficient updates to stored hashes and salts, which is better suited for a structured database. This feature may be added in a future version."
 
 This project uses the RockYou password dataset due to its common usage in security education and password research.
