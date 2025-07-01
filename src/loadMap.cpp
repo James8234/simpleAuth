@@ -42,7 +42,6 @@ void loadMap(std::unordered_map<std::string, std::string>& m, const std::string 
 		hash2 = var[1];
 		m.insert( make_pair(hash1, hash2));
 	}
-
 	//cleanup
 	file.close();
 	unlockFile(fd);

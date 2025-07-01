@@ -29,6 +29,7 @@ void createAccount(std::vector<bool>& bloomfilter)
 {
 	//variables
 	int choice = 0; //used for user input
+	int passwordCharCount = 0;
 	bool exitProgram = false; //LCV
 	std::string username = "";
 	std::string password = "";
@@ -37,7 +38,7 @@ void createAccount(std::vector<bool>& bloomfilter)
 
 	while(!exitProgram)
 	{
-		printCreateAccount(username);
+		printCreateAccount(username, passwordCharCount);
 		choice = checkValidInteger(3, 0);
 
 		switch(choice)
@@ -59,6 +60,7 @@ void createAccount(std::vector<bool>& bloomfilter)
 			case 2 :
 				std::cout << "Enter password here ->:";
 				getline(std::cin, password);
+				passwordCharCount = password.size();
 				break;
 			case 3 :
 				usernameResult = validateUsername(username);

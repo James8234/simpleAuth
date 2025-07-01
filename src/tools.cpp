@@ -16,7 +16,7 @@
  *
  * @return vector which contains the string variables in each elemnt of the vector
  */
-
+#include <iostream>
 std::vector<std::string> extractJsonInput(const std::string input, int n)
 {
 	//variables
@@ -29,16 +29,19 @@ std::vector<std::string> extractJsonInput(const std::string input, int n)
 	for(int i = 0; i < n; i++)
 	{
 		//internal loop to extract a single variable at a time
-		for(int j = 0; j < 2; j++)
+		for(int j = 0; j < n; j++)
 		{
 			//These two after the second loop has the second pair of "" which contains our variable
 			firstPosition = input.find('\"', secondPosition + 1);
 			secondPosition = input.find('\"', firstPosition + 1);
+//std::cout << "your firstPosition is: " << firstPosition << std::endl;
+//std::cout << "your secondPosition is: " << secondPosition << std::endl;
 		}
 		//check for errors
 		if(firstPosition != std::string::npos)
 		{
-			variable = input.substr(firstPosition + 1, secondPosition);
+			variable = input.substr(firstPosition + 1, secondPosition - firstPosition - 1);
+//std::cout << "yourfinal positions are: " << firstPosition << "]" << secondPosition << std::endl;
 			var.push_back(variable);
 		}
 	}//outer loop

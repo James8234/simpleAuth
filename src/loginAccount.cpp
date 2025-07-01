@@ -5,6 +5,7 @@
 #include "opensslLib.h" //std::string hash_sha512_evp(const std::string& input)
 #include "authenticateIdenity.h" //authenticateIdenity(username, password);
 #include "logAuthticationAttempt.h"
+#include "UI.h" //printLoginAccount
 /**
  * @brief This function allows the user to login to their existing account
  *
@@ -31,6 +32,7 @@ void loginAccount()
 
 	while(!exitProgram)
 	{
+		printLoginAccount(username, passwordSize);
 		choice = checkValidInteger(3, 0);
 
 		switch(choice)
@@ -39,28 +41,35 @@ void loginAccount()
 				exitProgram = true;
 				break;
 			case 1 :
+				std::cout << "Enter your username ->:";
 				getline(std::cin, username);
 				usernameSize = username.size();
 				break;
 			case 2 :
+				std::cout << "Enter your password ->:";
 				getline(std::cin, password);
 				passwordSize = password.size();
-				password = hash_sha512_evp(password + "size");
+				password = hash_sha512_evp(password + "salt");
 				break;
 			case 3 :
 				if(usernameSize >= 4 && usernameSize <= 50 && passwordSize >= 8 && passwordSize <= 50)
 				{
 					loginStatus = authenticateIdenity(username, password);
 					logAuthticationAttempt(username, loginStatus);
+					if(loginStatus == true)
+						printAccount(username);
 					exitProgram = true;
 				}
 				else
 				{
 					std::cout << "Input left empty" << std::endl;
+					std::cin.ignore(100000 , '\n');
 				}
 				break;
 			default :
 				std::cout << "input error" << std::endl;
 		}//switch(choice)
 	}//while(!exitProgram)
+//	if(loginStatus == true)
+//		printAccount(username);
 }//end of function

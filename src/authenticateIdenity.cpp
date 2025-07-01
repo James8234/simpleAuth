@@ -14,11 +14,10 @@
  *
  * @return bool, True when they authenicated, false then they are not
  */
-
 bool authenticateIdenity(std::string username, std::string& password)
 {
 	//variables
-	const std::string filepath = "shawdow/account.dat";
+	const std::string filepath = "shadow/account.dat";
 	bool result = false;
 	std::unordered_map<std::string, std::string> account;
 
