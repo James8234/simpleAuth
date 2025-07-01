@@ -70,6 +70,7 @@ Note: The JSON log files shown below will be forwarded to wazuh under "ossec.con
     <decoded_as>json</decoded_as>
     <field name="event">IP_ACCOUNT_DUPLICATION_WARNING</field>
     <description>IP reused for multiple account attempts</description>
+    <group>authentication_failed</group>
   </rule>
 </group>
 
@@ -79,6 +80,7 @@ Note: The JSON log files shown below will be forwarded to wazuh under "ossec.con
     <field name="event">login_attempt</field>
     <match key="status">failed</field>
     <description>Custom: Failed login attempt</description>
+    <group>authentication_success</group>
   </rule>
 </group>
 
