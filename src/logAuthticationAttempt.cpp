@@ -20,7 +20,7 @@
 void logAuthticationAttempt(const std::string username, bool loginStatus)
 {
 	//variables
-	const std::string filepath = "log/auth.dat";
+	const std::string filepath = "log/auth.log";
 	std::string ip = "";
 	std::string event = "login_attempt";
 	std::string timestamp = "";
@@ -31,7 +31,7 @@ void logAuthticationAttempt(const std::string username, bool loginStatus)
 	//set variables
 	if(loginStatus)
 	{
-		status = "sucess";
+		status = "success";
 	}
 	else
 	{
